@@ -2,10 +2,10 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: An AWS Serverless Specification template describing your function.
 Resources:
-  getCardGames:
+  cardGames:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: getCardGames/index.handler
+      Handler: cardGames/index.handler
       Runtime: nodejs4.3
       Description: ''
       MemorySize: 128
@@ -14,15 +14,15 @@ Resources:
         LambdaMicroservice:
           Type: Api
           Properties:
-            Path: /api
+            Path: /api/cardGames
             Method: ANY
-  getCardGamesPermission:
+  cardGamesPermission:
     Type: 'AWS::Lambda::Permission'
     Properties:
       Action: 'lambda:InvokeFunction'
       FunctionName:
         'Fn::GetAtt':
-          - getCardGames
+          - cardGames
           - Arn
       Principal: apigateway.amazonaws.com
       SourceArn:
