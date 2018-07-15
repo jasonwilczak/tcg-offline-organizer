@@ -1,0 +1,20 @@
+{
+    "getCardGames": {
+        "apigateway": {
+            "path": "/api",
+            "method": {
+                "value": "GET",
+                "items": [
+                    "GET",
+                    "POST",
+                    "PUT",
+                    "DELETE",
+                    "HEAD",
+                    "OPTIONS",
+                    "PATCH"
+                ]
+            },
+            "queryString": "param1=test"
+        }
+    }
+}
