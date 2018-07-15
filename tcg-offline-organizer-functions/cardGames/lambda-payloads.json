@@ -1,5 +1,20 @@
 {
     "cardGames": {
-        "lambda": {}
+        "lambda": {},
+        "apigateway": {
+            "path": "/api/cardGames",
+            "method": {
+                "value": "GET",
+                "items": [
+                    "GET",
+                    "POST",
+                    "PUT",
+                    "DELETE",
+                    "HEAD",
+                    "OPTIONS",
+                    "PATCH"
+                ]
+            }
+        }
     }
 }

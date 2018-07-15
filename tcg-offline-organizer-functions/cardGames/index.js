@@ -17,7 +17,7 @@ exports.handler = (event, context, callback) => {
         path: '/v1.9.0/catalog/categories?limit=100',
         method: 'GET',
         headers: {
-            
+            'Authorization': 'Bearer PuWmA322Or57IZzRAnKnvYSG_124ZdetfS99eltFdU6wDO1As_s-3BkIpDmw7fwGTmW_YQ800jtl5O5vFAKxgpaNjjd2_hAKAs2CZFFz6ps8WQicJhaNwRNlBiF5Ikt4g7IVNZQZ6Q8Qko-VdpY9y7TSu2wvlhyrx5-p2btT2eVQcShdvCEmhX_S3RX9g8MPQ2pANIussrFYMq7lRkQlyb2k6VKSZMZB2JLPtGs7RDJJ5zOOsozfp6loT5-7eHO1sLVGUCVVow7aPk1aKOB7YJwBV6XqRtQbKtkjUPtOvoBEdNNk7dJ9guiYKAlG3wjSfAvbrQ'
         }
     };
     
@@ -32,7 +32,27 @@ exports.handler = (event, context, callback) => {
             // If we know it's JSON, parse it
             if (res.headers['content-type'] === 'application/json') {
                 body = JSON.parse(body);
+                const bodyResults = body.results.map(obj => { 
+                    let rObj = {};
+                    rObj['categoryId'] = obj.categoryId;
+                    rObj['name'] = obj.name;
+                    rObj['displayName'] = obj.displayName;
+                    return rObj;
+                });
+                console.log(bodyResults);
+            //body.results = bodyResults;
             }
+            //body = JSON.parse(body);
+            // const bodyResults = body.results.map(obj => { 
+            //     let rObj = {};
+            //     rObj['categoryId'] = obj.categoryId;
+            //     rObj['name'] = obj.name;
+            //     rObj['displayName'] = obj.displayName;
+            //     return rObj;
+            // });
+            // console.log(bodyResults);
+            //body.results = bodyResults;
+            
             const responseObject = {
               'statusCode': res.statusCode,
               'headers': res.headers,
