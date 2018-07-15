@@ -70,4 +70,6 @@ typings/
 .vuepress/dist
 
 # Serverless directories
+
+.userSettings
 .serverless
