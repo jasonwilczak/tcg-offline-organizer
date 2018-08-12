@@ -6,14 +6,13 @@ class CardGamePicker extends Component {
   constructor() {
     super();
     this.state = {
-      selectedCardGame: {title:''}
+      selectedCardGame: {title:''},
+      cardGameOptions: []
     };
     this.handleChange = this.handleChange.bind(this);
-    this.options = [];
     var service = new CardGamesService();
     service.getCardGames((data)=>{
-      //console.log(data)
-      this.options = data;
+      this.setState({cardGameOptions: data.map((i)=>{return {text:i.displayName,value:i.categoryId};})});
     });
   }
   handleChange(event) {
@@ -22,8 +21,7 @@ class CardGamePicker extends Component {
     console.log(event.target.value);
   }
   render() {
-    const { selectedCardGame } = this.state;
-    console.log(this.state);
+    const { selectedCardGame, cardGameOptions } = this.state;
     return (
       <div>
         <Select
@@ -32,7 +30,7 @@ class CardGamePicker extends Component {
           id="picker-card_game"
           //value={selectedCardGame}
           handleChange={this.handleChange}
-          options={this.options}
+          options={cardGameOptions}
         />
         <h2>{selectedCardGame.title}</h2>
       </div>

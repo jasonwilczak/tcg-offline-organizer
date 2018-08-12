@@ -6,19 +6,27 @@ class CardGamesService {
   constructor() {
   }
   getCardGames(onSuccess) {
-    onSuccess([{text:'game1',value:1},{text:'game2',value:2}]);
-    // const myHeaders = new Headers();
-    // myHeaders.append('Content-Type', 'application/json');
-    // myHeaders.append('Access-Control-Allow-Origin','*');
+    //onSuccess([{text:'game1',value:1},{text:'game2',value:2}]);
+    const endpoint = 'https://xfenypgzb9.execute-api.us-east-1.amazonaws.com/Prod/api/cardGames';
+    // const requestHeaders = new Headers();
+    // //requestHeaders.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    // //requestHeaders.append('Access-Control-Allow-Origin', '*');
     
-    // const myInit = { method: 'GET',
-    //               headers: myHeaders,
-    //               mode: 'no-cors',
+    // const initOptions = { method: 'GET',
+    //               headers: requestHeaders,
+    //               mode: 'cors',
     //               cache: 'default' };
     
-    // const myRequest = new Request('http://lambdafunction',myInit);
-    // return fetch(myRequest).then(response => response.json()).then((data)=>onSuccess(data));
-          //.then(json => console.log(json))
+    const myRequest = new Request(endpoint);//,initOptions);
+    return fetch(myRequest)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data)=>{
+           const body = JSON.parse(data.body);
+           const results = body.results;
+            onSuccess(results);
+        });
   }
 }
 
