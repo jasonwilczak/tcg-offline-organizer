@@ -11,40 +11,29 @@ class CardList extends Component {
     };
     var service = new CardGamesService();
     service.getCards(24,(data)=>{
-      this.setState({cards: data});
+      this.setState({cards: data.results});
     });
   }
   render() {
     const { cards } = this.state;
-    const data = [{
-      name: 'Tanner Linsley',
-      age: 26,
-      friend: {
-          name: 'Jason Maurer',
-          age: 23,
-      }
-    }];
 
     const columns = [{
         Header: 'Name',
         accessor: 'name' // String-based value accessors!
       }, {
-        Header: 'Age',
-        accessor: 'age',
-        Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-      }, {
-        id: 'friendName', // Required because our accessor is not a string
-        Header: 'Friend Name',
-        accessor: d => d.friend.name // Custom value accessors!
-      }, {
-        Header: props => <span>Friend Age</span>, // Custom header components!
-        accessor: 'friend.age'
-    }];
+        Header: 'Buy Me',
+        accessor: 'url',
+        Cell: row => (
+          <a href={row.value}>Store</a>
+          )
+      }
+      
+      ];
   
     return (
       <div>
         <ReactTable
-          data={data}
+          data={cards}
           columns={columns}
         />
       </div>
