@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import ReactTable from "react-table";
 import 'react-table/react-table.css';
 import CardGamesService from "../../services/card-games-service";
+import { notifications } from "../../services/notification-service";
 class CardList extends Component {
   constructor() {
     super();
@@ -10,9 +11,12 @@ class CardList extends Component {
       cards: []
     };
     var service = new CardGamesService();
-    service.getCards(24,(data)=>{
-      this.setState({cards: data.results});
+    notifications.on(notifications.EventTypes.GAME_SELECTED,(eventData)=>{
+       service.getCards(eventData,(data)=>{
+        this.setState({cards: data.results});
+      });
     });
+   
   }
   render() {
     const { cards } = this.state;
@@ -25,6 +29,12 @@ class CardList extends Component {
         accessor: 'url',
         Cell: row => (
           <a href={row.value}>Store</a>
+          )
+      }, {
+        Header: 'Image',
+        accessor: 'imageSource',
+        Cell: row => (
+          <img style={{height:'50%'}} src={row.value}/>
           )
       }
       

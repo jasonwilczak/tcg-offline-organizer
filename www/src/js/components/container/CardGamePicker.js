@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Select from "../presentational/Select";
 import CardGamesService from "../../services/card-games-service";
+import { notifications } from "../../services/notification-service";
 class CardGamePicker extends Component {
   constructor() {
     super();
@@ -19,6 +20,7 @@ class CardGamePicker extends Component {
     this.setState({selectedCardGame: {title:event.target.value }});
     console.log(event);
     console.log(event.target.value);
+    notifications.fire(notifications.EventTypes.GAME_SELECTED,event.target.value);
   }
   render() {
     const { selectedCardGame, cardGameOptions } = this.state;
